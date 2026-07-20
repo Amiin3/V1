@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Login</title></head>
+<body style="font-family:sans-serif;padding:40px;background:#f0f4ff">
+    <h1>🔐 Login OTP</h1>
+    <form method="POST" action="/login/request-otp">
+        <input type="hidden" name="_token" value="">
+        <input type="text" name="number" placeholder="628xxxxxxxxxx" required>
+        <button type="submit">Kirim OTP</button>
+    </form>
+    <hr>
+    <form method="POST" action="/login">
+        <input type="hidden" name="_token" value="">
+        <input type="text" name="number" placeholder="628xxxxxxxxxx" required>
+        <input type="text" name="password" placeholder="Kode OTP" required>
+        <button type="submit">Masuk</button>
+    </form>
+</body>
+</html>
