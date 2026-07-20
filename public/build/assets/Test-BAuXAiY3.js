@@ -1,0 +1,1 @@
+import{_ as e,m as t,w as n}from"./app-kyH0piwZ.js";import{t as r}from"./_plugin-vue_export-helper-BDNMzG2s.js";var i={},a={style:{padding:`2rem`,background:`lightgreen`}};function o(r,i){return n(),e(`div`,a,[...i[0]||=[t(`h1`,null,`Halaman Test Berhasil!`,-1),t(`p`,null,`Inertia dan Vue berfungsi.`,-1)]])}var s=r(i,[[`render`,o]]);export{s as default};
