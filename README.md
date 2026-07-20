@@ -1,58 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Kita akan membuat satu perintah utuh yang langsung bisa Anda salin dan tempel ke terminal server. Perintah ini akan membuat semua file dokumentasi, script auto-installer, dan langsung push ke GitHub.
 
 ```bash
-composer require laravel/boost --dev
+cd /var/www/file-manager && \
+cat > README.md << 'ENDOFFILE'
+# 🔥 ME-WEB Dashboard XL
 
-php artisan boost:install
+Dashboard manajemen paket XL berbasis Laravel 11 + Vue 3 + Inertia.
+
+## 🚀 Quick Install
+```bash
+cd /var/www
+git clone https://github.com/Amiin3/V1.git file-manager
+cd file-manager
+chmod +x install.sh
+./install.sh
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+📋 Fitur
 
-## Contributing
+· Login Admin (username/password dari .env)
+· Login Reseller via OTP (CIAM XL)
+· Dashboard Modern ala MyXL
+· Auto-Login Admin ke Akun Reseller
+· Auto-Refresh Token
+· Semua menu: Paket Saya, Beli HOT, Family Plan, Circle, Store, dll.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+📖 Panduan Lengkap
 
-## Code of Conduct
+Lihat SETUP.md untuk migrasi server step-by-step.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+🔐 Default Access
 
-## Security Vulnerabilities
+· Admin: /admin/login
+· Reseller: /login
+  ENDOFFILE
+  cat > SETUP.md << 'ENDOFFILE'
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+🚀 Panduan Migrasi Server
 
-## License
+Step 1: Clone Repository
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cd /var/www
+git clone https://github.com/Amiin3/V1.git file-manager
+cd file-manager
+```
+
+Step 2: Jalankan Auto-Installer
+
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+Step 3: Konfigurasi .env
+
+```bash
+nano .env
+# Isi APP_URL, ADMIN_USERNAME, ADMIN_PASSWORD
+# Isi PROVIDER_BASIC_AUTH, PROVIDER_API_KEY, dll.
+```
+
+Step 4: Konfigurasi Nginx
+
+```bash
+cp nginx.conf /etc/nginx/sites-available/domain-anda
+sed -i 's/xl.milastore.cloud/domain-anda.com/g' /etc/nginx/sites-available/domain-anda
+ln -s /etc/nginx/sites-available/domain-anda /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+```
+
+Step 5: SSL dengan Certbot
+
+```bash
+apt install certbot python3-certbot-nginx -y
+certbot --nginx -d domain-anda.com
+```
+
+Step 6: Cloudflare
+
+· DNS: A record ke IP server
+· Proxy: ON (oranye)
+· SSL/TLS: Full (strict)
+
+✅ Selesai
+
+Akses: https://domain-anda.com
+ENDOFFILE
+cat > .env.example << 'ENDOFFILE'
+APP_NAME="ME-WEB Dashboard"
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=false
+APP_URL=https://domain-anda.com
+DB_CONNECTION=sqlite
+SESSION_DRIVER=file
+CACHE_STORE=file
+ADMIN_USERNAME=1Hendrawati
+ADMIN_PASSWORD=1Hendrawati
+PROVIDER_BASE_API_URL="https://api.myxl.xlaxiata.co.id"
+PROVIDER_BASE_CIAM_URL="https://gede.ciam.xlaxiata.co.id"
+PROVIDER_BASIC_AUTH=""
+PROVIDER_API_KEY=""
+PROVIDER_AX_FP_KEY=""
+PROVIDER_UA=""
+PROVIDER_BASE_CRYPTO_URL="https://me-crypto.mashu.lol/api/890"
+PROVIDER_BASE_URL="https://api.myxl.xlaxiata.co.id"
+ENDOFFILE
+cat > nginx.conf << 'ENDOFFILE'
+server {
+listen 80;
+server_name xl.milastore.cloud;
+return 301 https://$host$request_uri;
+}
+server {
+listen 443 ssl;
+server_name xl.milastore.cloud;
+root /var/www/file-manager/public;
+index index.php index.html;
+ssl_certificate /etc/nginx/ssl/xl.milastore.cloud/cert.pem;
+ssl_certificate_key /etc/nginx/ssl/xl.milastore.cloud/key.pem;
+location / { try_files $uri $uri/ /index.php?$query_string; }
+    location ~ \.php$ {
+include snippets/fastcgi-php.conf;
+fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+}
+}
+ENDOFFILE
+cat > install.sh << 'ENDOFFILE'
+#!/bin/bash
+set -e
+echo "============================================"
+echo "   ME-WEB Dashboard - Auto Installer"
+echo "============================================"
+if [ "$EUID" -ne 0 ]; then echo "Jalankan sebagai root: sudo ./install.sh"; exit 1; fi
+echo "[1/5] Install dependensi PHP..."
+composer install --no-interaction --optimize-autoloader
+echo "[2/5] Setup environment..."
+if [ ! -f .env ]; then cp .env.example .env; php artisan key:generate; echo "File .env telah dibuat."; else echo "File .env sudah ada."; fi
+echo "[3/5] Mengatur permission..."
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
+echo "[4/5] Menjalankan migrasi database..."
+php artisan migrate --force
+echo "[5/5] Build frontend..."
+npm install && npm run build
+echo "============================================"
+echo "   INSTALASI SELESAI!"
+echo "   Edit .env untuk konfigurasi"
+echo "   Setup Nginx (cp nginx.conf)"
+echo "   Jalankan certbot untuk SSL"
+echo "============================================"
+ENDOFFILE
+chmod +x install.sh && 
+git add README.md SETUP.md install.sh .env.example nginx.conf && 
+git commit -m "Add documentation, setup guide, auto-installer, config templates" && 
+git push -u origin main && 
+echo "✅ Semua selesai! https://github.com/Amiin3/V1"
+
+```
